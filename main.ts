@@ -1,20 +1,14 @@
 import { Hono } from "https://deno.land/x/hono@v3.4.1/mod.ts";
-import data from "./data.json" assert { type: "json" };
+import { serveStatic } from 'https://deno.land/x/hono/middleware.ts'
 
 const app = new Hono();
 
-app.get("/", (c) => c.text("Welcome to dinosaur API!"));
+app.get("/", (c) => c.text("Coming soon... Created by @amex2189"));
 
-app.get("/api/", (c) => c.json(data));
+app.post("/check", (c) => c.text("success"))
 
-app.get("/api/:dinosaur", (c) => {
-  const dinosaur = c.req.param("dinosaur").toLowerCase();
-  const found = data.find((item) => item.name.toLowerCase() === dinosaur);
-  if (found) {
-    return c.json(found);
-  } else {
-    return c.text("No dinosaurs found.");
-  }
-});
+app.get("/static/*", serveStatic({
+  root: "./"
+})
 
 Deno.serve(app.fetch);
