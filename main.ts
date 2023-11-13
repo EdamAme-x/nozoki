@@ -5,10 +5,10 @@ const app = new Hono();
 
 app.get("/", (c) => c.text("Coming soon... Created by @amex2189"));
 
-app.post("/check", (c) => c.text("success"))
+app.post("/check", (c) => c.text("success"));
 
 app.get("/static/*", serveStatic({
   root: "./"
-})
+});
 
 Deno.serve(app.fetch);
