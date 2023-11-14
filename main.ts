@@ -10,7 +10,10 @@ import { Context } from "https://deno.land/x/hono@v3.4.1/context.ts";
 
 const app: Hono = new Hono();
 
-app.get("/", (c: Context) => c.text("Coming soon... Created by @amex2189 / ame_x"));
+app.get(
+  "/",
+  (c: Context) => c.text("Coming soon... Created by @amex2189 / ame_x"),
+);
 
 app.post("/check", (c: Context) => c.text("success"));
 
@@ -41,4 +44,6 @@ app.get("/runtime", async () => {
 });
 
 // @ts-ignore
-serve(app.fetch);
+serve(app.fetch, {
+  port: 8080,
+});
