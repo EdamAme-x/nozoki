@@ -17,6 +17,7 @@ let logs = [
     time: getCurrentTime(),
   },
 ];
+
 let lastMessage = "";
 
 function getCurrentTime() {
@@ -57,6 +58,7 @@ function start() {
   started = !0;
   console.clear();
   logs = [];
+  $("#log").out.innerHTML = "";
 
   const thread = setInterval(async () => {
     const res = await getLastMessage(target);
@@ -152,4 +154,5 @@ window.onload = function () {
       ),
     ),
   ));
+  $("#log").out.appendChild(logComponent(logs[logs.length - 1]));
 };
