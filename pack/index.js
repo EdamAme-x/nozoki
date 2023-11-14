@@ -91,14 +91,13 @@ function start() {
 
     if (lastMessage !== res.sendBy + res.text) {
       logs.push({
-        name: res.sendby ? (res.name ? res.name : "MEMBER") : "BOT",
+        name: "MEMBER" ?? res.sendby ? (res.name ? res.name : "MEMBER") : "BOT", // NOTE: 全てはunknownになる
         content: res.text,
         time: getCurrentTime(),
       });
 
       lastMessage = res.sendBy + res.text;
 
-      console.log(logs[logs.length - 1]);
       $("#log").out.appendChild(logComponent(logs[logs.length - 1]));
     }
   }, 750);
