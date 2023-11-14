@@ -16,7 +16,6 @@ let logs = [
     content: "皆さんこんにちは！ このメッセージはサンプルです。",
     time: getCurrentTime(),
   },
-  
 ];
 
 let lastMessage = "";
@@ -91,7 +90,8 @@ function start() {
 
     if (lastMessage !== res.sendBy + res.text) {
       logs.push({
-        name: "MEMBER" ?? ( res.sendby ? (res.name ? res.name : "MEMBER") : "BOT"), // NOTE: 全てはunknownになる
+        name:
+          "MEMBER" ?? (res.sendby ? (res.name ? res.name : "MEMBER") : "BOT"), // NOTE: 全てはunknownになる
         content: res.text,
         time: getCurrentTime(),
       });
@@ -145,9 +145,14 @@ function logComponent(log) {
         },
         log.content
       ),
-      div({
-        class: tw("w-1/5 text-right text-gray-400 text-sm flex flex-col items-center justify-end"),
-      }, log.time)
+      div(
+        {
+          class: tw(
+            "w-1/5 text-right text-gray-400 text-sm flex flex-col items-center justify-end"
+          ),
+        },
+        log.time
+      )
     )
   );
 }
@@ -209,6 +214,20 @@ window.onload = function () {
         ),
         id: "log",
       }),
+      div(
+        {
+          class: tw("mt-1 flex flex-row items-center h-[50px] w-[275px]"),
+        },
+        button({
+          class: tw("w-1/2 rounded bg-gray-700 text-white border-none hover:bg-gray-600 focus"),
+          $click: () => {
+            $("#log").out.scrollTop = $("#log").out.scrollHeight;
+          }
+        }, "Down"),
+        button({
+          class: tw("w-1/2 rounded bg-gray-700 text-white border-none hover:bg-gray-600 focus"),
+        }, "Export")
+      ),
       div(
         {},
         p(
