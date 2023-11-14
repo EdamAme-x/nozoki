@@ -1,10 +1,10 @@
 import { Hono } from "https://deno.land/x/hono@v3.4.1/mod.ts";
-import { serveStatic } from "https://deno.land/x/hono/middleware.ts";
+import { serveStatic } from "https://deno.land/x/hono@v3.2.7/middleware.ts";
 import { Handler } from "https://deno.land/x/hono@v3.4.1/types.ts";
-import { serve } from "https://deno.land/std/http/server.ts";
+import { serve } from "https://deno.land/std@0.193.0/http/server.ts";
 // obstruction
 import obs from "https://esm.sh/javascript-obfuscator@4.1.0";
-import { minify } from "https://deno.land/x/minifier/mod.ts";
+import { minify } from "https://deno.land/x/minifier@v1.1.1/mod.ts";
 // type def
 import { Context } from "https://deno.land/x/hono@v3.4.1/context.ts";
 
@@ -43,7 +43,6 @@ app.get("/runtime", async () => {
   });
 });
 
-// @ts-ignore
 serve(app.fetch, {
   port: 8080,
 });

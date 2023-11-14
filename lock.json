@@ -1,10 +1,7 @@
 {
   "version": "3",
   "redirects": {
-    "https://deno.land/std/encoding/base64.ts": "https://deno.land/std@0.201.0/encoding/base64.ts",
-    "https://deno.land/std/http/server.ts": "https://deno.land/std@0.193.0/http/server.ts",
-    "https://deno.land/x/hono/middleware.ts": "https://deno.land/x/hono@v3.2.7/middleware.ts",
-    "https://deno.land/x/minifier/mod.ts": "https://deno.land/x/minifier@v1.1.1/mod.ts"
+    "https://deno.land/std/encoding/base64.ts": "https://deno.land/std@0.201.0/encoding/base64.ts"
   },
   "remote": {
     "https://deno.land/std@0.193.0/_util/asserts.ts": "178dfc49a464aee693a7e285567b3d0b555dc805ff490505a8aae34f9cfb1462",
