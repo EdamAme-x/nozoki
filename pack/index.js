@@ -91,7 +91,7 @@ function start() {
 
     if (lastMessage !== res.sendBy + res.text) {
       logs.push({
-        name: "MEMBER" ?? res.sendby ? (res.name ? res.name : "MEMBER") : "BOT", // NOTE: 全てはunknownになる
+        name: "MEMBER" ?? ( res.sendby ? (res.name ? res.name : "MEMBER") : "BOT"), // NOTE: 全てはunknownになる
         content: res.text,
         time: getCurrentTime(),
       });
@@ -100,7 +100,7 @@ function start() {
 
       $("#log").out.appendChild(logComponent(logs[logs.length - 1]));
     }
-  }, 750);
+  }, 550);
 
   setTimeout(() => {
     clearInterval(thread);
