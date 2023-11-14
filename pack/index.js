@@ -65,7 +65,7 @@ function start() {
 
     if (lastMessage !== (res.sendBy + res.text)) {
       logs.push({
-        name: res.sendby ? res.name ?? "MEMBER" : "BOT",
+        name: res.sendby ? res.name ? res.name : "MEMBER" : "BOT",
         content: res.text,
         time: getCurrentTime(),
       });
