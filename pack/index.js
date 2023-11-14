@@ -8,6 +8,7 @@ import Swal from "https://esm.sh/sweetalert2@11.9.0";
 console.log("Welcome to Nozoki OC / Frontend by @amex2189");
 
 let target = "";
+// そんなコードジロジロ見ないで //
 const api = "https://tumuri.deno.dev/";
 let started = false;
 let logs = [
@@ -15,6 +16,7 @@ let logs = [
     name: "ame_x@amex2189",
     content: "皆さんこんにちは！ このメッセージはサンプルです。",
     time: getCurrentTime(),
+    raw: {}
   },
 ];
 
@@ -94,6 +96,7 @@ function start() {
           "MEMBER" ?? (res.sendby ? (res.name ? res.name : "MEMBER") : "BOT"), // NOTE: 全てはunknownになる
         content: res.text,
         time: getCurrentTime(),
+        raw: res
       });
 
       lastMessage = res.sendBy + res.text;
@@ -143,7 +146,7 @@ function logComponent(log) {
             "w-4/5 overflow-hidden text-ellipsis text-sm text-white bg-gray-700 rounded p-1 chat-x"
           ),
         },
-        log.content
+        log.content ?? "< 画像 / 動画 / スタンプ・絵文字 / Flex / その他 >"
       ),
       div(
         {
@@ -226,6 +229,21 @@ window.onload = function () {
         }, "Down"),
         button({
           class: tw("w-1/2 rounded bg-gray-700 text-white border-none hover:bg-gray-600 focus"),
+          $click: () => {
+            const textarea = document.createElement("textarea");
+            textarea.value = logs.map(log => `${log.name}: ${log.time} ${log.content}`).join("\n");
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+
+            Swal.fire({
+              icon: "success",
+              title: "完了",
+              text: "ログをコピーしました",
+              confirmButtonText: "OK",
+            })
+          }
         }, "Export")
       ),
       div(
