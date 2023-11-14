@@ -31,7 +31,7 @@ app.get("/preview", async (c: Context) => {
 });
 
 app.get("/runtime", async () => {
-  const base = await Deno.readTextFile("./pack/index.js");
+  const base: string = await Deno.readTextFile("./pack/index.js");
   const js: obs.ObfuscationResult = obs.obfuscate(
     base,
   );

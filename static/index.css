@@ -1,7 +1,7 @@
 body {
   width: 100vw;
   height: 100vh;
-  background: rgb(18,11,62);
+  background: #181818;
   color: #fff !important;
   display: flex;
   flex-direction: column;
@@ -18,6 +18,7 @@ body {
 h1 {
   font-size: 2rem;
   font-weight: bold;
+  color: rgba(235, 235, 235, .64) !important;
 }
 
 @font-face {
@@ -33,7 +34,6 @@ h1 {
 }
 
 .nuem-x {
-  background: linear-gradient(145deg, #f0f0f0, #cacaca) !important;
   box-shadow:  1px 1px 2px #aaaaaa,
                -1px -1px 2px #ffffff !important;
 }
