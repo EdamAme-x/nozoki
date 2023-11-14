@@ -46,3 +46,14 @@ h1 {
   border: none;
   outline: none;
 }
+
+.chat-x::before {
+  content: "▲";
+  position: absolute;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #374151;
+  transform: rotate(-45deg);
+  margin-top: -13px;
+  margin-left: -11.5px;
+}

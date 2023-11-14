@@ -130,18 +130,18 @@ function logComponent(log) {
     },
     span(
       {
-        class: tw("ml-1 text-gray-400 w-2/3 overflow-hidden"),
+        class: tw("ml-3 text-gray-400 w-2/3 overflow-hidden"),
       },
       log.name
     ),
     div(
       {
-        class: tw("mt-1 flex items-end justify-center h-auto"),
+        class: tw("mt-1 ml-2 flex items-end justify-center h-auto"),
       },
       div(
         {
           class: tw(
-            "w-4/5 overflow-hidden text-ellipsis text-sm text-white bg-gray-700 rounded p-1"
+            "w-4/5 overflow-hidden text-ellipsis text-sm text-white bg-gray-700 rounded p-1 chat-x"
           ),
         },
         log.content
