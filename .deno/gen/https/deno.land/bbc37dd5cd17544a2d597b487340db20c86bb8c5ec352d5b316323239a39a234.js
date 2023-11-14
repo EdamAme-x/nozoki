@@ -1,0 +1,7 @@
+export const poweredBy = ()=>{
+    return async (c, next)=>{
+        await next();
+        c.res.headers.set('X-Powered-By', 'Hono');
+    };
+};
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImh0dHBzOi8vZGVuby5sYW5kL3gvaG9ub0B2My4xMC4wL21pZGRsZXdhcmUvcG93ZXJlZC1ieS9pbmRleC50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgdHlwZSB7IE1pZGRsZXdhcmVIYW5kbGVyIH0gZnJvbSAnLi4vLi4vdHlwZXMudHMnXG5cbmV4cG9ydCBjb25zdCBwb3dlcmVkQnkgPSAoKTogTWlkZGxld2FyZUhhbmRsZXIgPT4ge1xuICByZXR1cm4gYXN5bmMgKGMsIG5leHQpID0+IHtcbiAgICBhd2FpdCBuZXh0KClcbiAgICBjLnJlcy5oZWFkZXJzLnNldCgnWC1Qb3dlcmVkLUJ5JywgJ0hvbm8nKVxuICB9XG59XG4iXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRUEsT0FBTyxNQUFNLFlBQVksSUFBeUI7SUFDaEQsT0FBTyxPQUFPLEdBQUcsT0FBUztRQUN4QixNQUFNO1FBQ04sRUFBRSxHQUFHLENBQUMsT0FBTyxDQUFDLEdBQUcsQ0FBQyxnQkFBZ0I7SUFDcEM7QUFDRixFQUFDIn0=

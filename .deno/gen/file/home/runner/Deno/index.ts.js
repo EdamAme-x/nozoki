@@ -1,0 +1,9 @@
+import * as expressive from "https://raw.githubusercontent.com/NMathar/deno-express/master/mod.ts";
+const port = 3000;
+const app = new expressive.App();
+app.get("/", (_req, res)=>{
+    res.send("Hello from Replit\r\n");
+});
+const server = await app.listen(port, "0.0.0.0");
+console.log("app listening on port " + server.port);
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZpbGU6Ly8vaG9tZS9ydW5uZXIvRGVuby9pbmRleC50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgKiBhcyBleHByZXNzaXZlIGZyb20gXCJodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vTk1hdGhhci9kZW5vLWV4cHJlc3MvbWFzdGVyL21vZC50c1wiO1xuXG5jb25zdCBwb3J0ID0gMzAwMDtcbmNvbnN0IGFwcCA9IG5ldyBleHByZXNzaXZlLkFwcCgpO1xuYXBwLmdldChcIi9cIiwgKF9yZXEsIHJlcykgPT4ge1xuICByZXMuc2VuZChcIkhlbGxvIGZyb20gUmVwbGl0XFxyXFxuXCIpO1xufSk7XG5jb25zdCBzZXJ2ZXIgPSBhd2FpdCBhcHAubGlzdGVuKHBvcnQsIFwiMC4wLjAuMFwiKTtcbmNvbnNvbGUubG9nKFwiYXBwIGxpc3RlbmluZyBvbiBwb3J0IFwiICsgc2VydmVyLnBvcnQpOyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxZQUFZLGdCQUFnQix1RUFBdUU7QUFFbkcsTUFBTSxPQUFPO0FBQ2IsTUFBTSxNQUFNLElBQUksV0FBVyxHQUFHO0FBQzlCLElBQUksR0FBRyxDQUFDLEtBQUssQ0FBQyxNQUFNLE1BQVE7SUFDMUIsSUFBSSxJQUFJLENBQUM7QUFDWDtBQUNBLE1BQU0sU0FBUyxNQUFNLElBQUksTUFBTSxDQUFDLE1BQU07QUFDdEMsUUFBUSxHQUFHLENBQUMsMkJBQTJCLE9BQU8sSUFBSSJ9

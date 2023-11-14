@@ -1,0 +1,3 @@
+import { TTypeFromEnum } from '../utils/TTypeFromEnum.d.ts';
+import { StringArrayWrappersType } from '../../enums/node-transformers/string-array-transformers/StringArrayWrappersType.d.ts';
+export type TStringArrayWrappersType = TTypeFromEnum<typeof StringArrayWrappersType>;

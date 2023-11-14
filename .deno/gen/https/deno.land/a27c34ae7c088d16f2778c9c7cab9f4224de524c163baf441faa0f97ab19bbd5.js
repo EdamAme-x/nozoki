@@ -1,0 +1,37 @@
+export const mergePath = (base, path)=>{
+    base = base.replace(/\/+$/, '');
+    base = base + '/';
+    path = path.replace(/^\/+/, '');
+    return base + path;
+};
+export const replaceUrlParam = (urlString, params)=>{
+    for (const [k, v] of Object.entries(params)){
+        const reg = new RegExp('/:' + k + '({[^}]*})?');
+        urlString = urlString.replace(reg, `/${v}`);
+    }
+    return urlString;
+};
+export const removeIndexString = (urlSting)=>{
+    return urlSting.replace(/\/index$/, '/');
+};
+function isObject(item) {
+    return typeof item === 'object' && item !== null && !Array.isArray(item);
+}
+export function deepMerge(target, source) {
+    if (!isObject(target) && !isObject(source)) {
+        return source;
+    }
+    const merged = {
+        ...target
+    };
+    for(const key in source){
+        const value = source[key];
+        if (isObject(merged[key]) && isObject(value)) {
+            merged[key] = deepMerge(merged[key], value);
+        } else {
+            merged[key] = value;
+        }
+    }
+    return merged;
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImh0dHBzOi8vZGVuby5sYW5kL3gvaG9ub0B2My40LjEvY2xpZW50L3V0aWxzLnRzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB0eXBlIHsgT2JqZWN0VHlwZSB9IGZyb20gJy4vdHlwZXMudHMnXG5cbmV4cG9ydCBjb25zdCBtZXJnZVBhdGggPSAoYmFzZTogc3RyaW5nLCBwYXRoOiBzdHJpbmcpID0+IHtcbiAgYmFzZSA9IGJhc2UucmVwbGFjZSgvXFwvKyQvLCAnJylcbiAgYmFzZSA9IGJhc2UgKyAnLydcbiAgcGF0aCA9IHBhdGgucmVwbGFjZSgvXlxcLysvLCAnJylcbiAgcmV0dXJuIGJhc2UgKyBwYXRoXG59XG5cbmV4cG9ydCBjb25zdCByZXBsYWNlVXJsUGFyYW0gPSAodXJsU3RyaW5nOiBzdHJpbmcsIHBhcmFtczogUmVjb3JkPHN0cmluZywgc3RyaW5nPikgPT4ge1xuICBmb3IgKGNvbnN0IFtrLCB2XSBvZiBPYmplY3QuZW50cmllcyhwYXJhbXMpKSB7XG4gICAgY29uc3QgcmVnID0gbmV3IFJlZ0V4cCgnLzonICsgayArICcoe1tefV0qfSk/JylcbiAgICB1cmxTdHJpbmcgPSB1cmxTdHJpbmcucmVwbGFjZShyZWcsIGAvJHt2fWApXG4gIH1cbiAgcmV0dXJuIHVybFN0cmluZ1xufVxuXG5leHBvcnQgY29uc3QgcmVtb3ZlSW5kZXhTdHJpbmcgPSAodXJsU3Rpbmc6IHN0cmluZykgPT4ge1xuICByZXR1cm4gdXJsU3RpbmcucmVwbGFjZSgvXFwvaW5kZXgkLywgJy8nKVxufVxuXG5mdW5jdGlvbiBpc09iamVjdChpdGVtOiB1bmtub3duKTogaXRlbSBpcyBPYmplY3RUeXBlIHtcbiAgcmV0dXJuIHR5cGVvZiBpdGVtID09PSAnb2JqZWN0JyAmJiBpdGVtICE9PSBudWxsICYmICFBcnJheS5pc0FycmF5KGl0ZW0pXG59XG5cbmV4cG9ydCBmdW5jdGlvbiBkZWVwTWVyZ2U8VD4odGFyZ2V0OiBULCBzb3VyY2U6IFJlY29yZDxzdHJpbmcsIHVua25vd24+KTogVCB7XG4gIGlmICghaXNPYmplY3QodGFyZ2V0KSAmJiAhaXNPYmplY3Qoc291cmNlKSkge1xuICAgIHJldHVybiBzb3VyY2UgYXMgVFxuICB9XG4gIGNvbnN0IG1lcmdlZCA9IHsgLi4udGFyZ2V0IH0gYXMgT2JqZWN0VHlwZTxUPlxuXG4gIGZvciAoY29uc3Qga2V5IGluIHNvdXJjZSkge1xuICAgIGNvbnN0IHZhbHVlID0gc291cmNlW2tleV1cbiAgICBpZiAoaXNPYmplY3QobWVyZ2VkW2tleV0pICYmIGlzT2JqZWN0KHZhbHVlKSkge1xuICAgICAgbWVyZ2VkW2tleV0gPSBkZWVwTWVyZ2UobWVyZ2VkW2tleV0sIHZhbHVlKVxuICAgIH0gZWxzZSB7XG4gICAgICBtZXJnZWRba2V5XSA9IHZhbHVlIGFzIFRba2V5b2YgVF0gJiBUXG4gICAgfVxuICB9XG5cbiAgcmV0dXJuIG1lcmdlZCBhcyBUXG59XG4iXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRUEsT0FBTyxNQUFNLFlBQVksQ0FBQyxNQUFjLE9BQWlCO0lBQ3ZELE9BQU8sS0FBSyxPQUFPLENBQUMsUUFBUTtJQUM1QixPQUFPLE9BQU87SUFDZCxPQUFPLEtBQUssT0FBTyxDQUFDLFFBQVE7SUFDNUIsT0FBTyxPQUFPO0FBQ2hCLEVBQUM7QUFFRCxPQUFPLE1BQU0sa0JBQWtCLENBQUMsV0FBbUIsU0FBbUM7SUFDcEYsS0FBSyxNQUFNLENBQUMsR0FBRyxFQUFFLElBQUksT0FBTyxPQUFPLENBQUMsUUFBUztRQUMzQyxNQUFNLE1BQU0sSUFBSSxPQUFPLE9BQU8sSUFBSTtRQUNsQyxZQUFZLFVBQVUsT0FBTyxDQUFDLEtBQUssQ0FBQyxDQUFDLEVBQUUsRUFBRSxDQUFDO0lBQzVDO0lBQ0EsT0FBTztBQUNULEVBQUM7QUFFRCxPQUFPLE1BQU0sb0JBQW9CLENBQUMsV0FBcUI7SUFDckQsT0FBTyxTQUFTLE9BQU8sQ0FBQyxZQUFZO0FBQ3RDLEVBQUM7QUFFRCxTQUFTLFNBQVMsSUFBYSxFQUFzQjtJQUNuRCxPQUFPLE9BQU8sU0FBUyxZQUFZLFNBQVMsSUFBSSxJQUFJLENBQUMsTUFBTSxPQUFPLENBQUM7QUFDckU7QUFFQSxPQUFPLFNBQVMsVUFBYSxNQUFTLEVBQUUsTUFBK0IsRUFBSztJQUMxRSxJQUFJLENBQUMsU0FBUyxXQUFXLENBQUMsU0FBUyxTQUFTO1FBQzFDLE9BQU87SUFDVCxDQUFDO0lBQ0QsTUFBTSxTQUFTO1FBQUUsR0FBRyxNQUFNO0lBQUM7SUFFM0IsSUFBSyxNQUFNLE9BQU8sT0FBUTtRQUN4QixNQUFNLFFBQVEsTUFBTSxDQUFDLElBQUk7UUFDekIsSUFBSSxTQUFTLE1BQU0sQ0FBQyxJQUFJLEtBQUssU0FBUyxRQUFRO1lBQzVDLE1BQU0sQ0FBQyxJQUFJLEdBQUcsVUFBVSxNQUFNLENBQUMsSUFBSSxFQUFFO1FBQ3ZDLE9BQU87WUFDTCxNQUFNLENBQUMsSUFBSSxHQUFHO1FBQ2hCLENBQUM7SUFDSDtJQUVBLE9BQU87QUFDVCxDQUFDIn0=

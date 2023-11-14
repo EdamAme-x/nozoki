@@ -1,0 +1,31 @@
+{
+  "headers": {
+    "date": "Fri, 15 Sep 2023 16:58:55 GMT",
+    "x-github-request-id": "3868:2962:A2F683:C2CCE2:65048D4E",
+    "content-type": "text/plain; charset=utf-8",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; sandbox",
+    "strict-transport-security": "max-age=31536000",
+    "x-fastly-request-id": "a4428ec2eff66fd63b01e86b7b2520063add2239",
+    "x-cache-hits": "0",
+    "x-cache": "MISS",
+    "expires": "Fri, 15 Sep 2023 17:03:55 GMT",
+    "x-served-by": "cache-bfi-krnt7300032-BFI",
+    "x-timer": "S1694797135.233296,VS0,VE143",
+    "cache-control": "max-age=300",
+    "cross-origin-resource-policy": "cross-origin",
+    "via": "1.1 varnish",
+    "x-content-type-options": "nosniff",
+    "x-frame-options": "deny",
+    "x-xss-protection": "1; mode=block",
+    "source-age": "0",
+    "accept-ranges": "bytes",
+    "vary": "Authorization,Accept-Encoding,Origin",
+    "access-control-allow-origin": "*",
+    "etag": "W/\"8a9d3d9a91507b62430de81850a7b4f3952e2caa82cf462b93cec4afc87a946d\""
+  },
+  "url": "https://raw.githubusercontent.com/NMathar/deno-express/master/src/Request.ts",
+  "now": {
+    "secs_since_epoch": 1694797135,
+    "nanos_since_epoch": 387491794
+  }
+}

@@ -1,0 +1,5 @@
+import { TIdentifierNamesCacheDictionary } from './TIdentifierNamesCacheDictionary.d.ts';
+export type TIdentifierNamesCache = {
+    globalIdentifiers?: TIdentifierNamesCacheDictionary;
+    propertyIdentifiers?: TIdentifierNamesCacheDictionary;
+} | null;

@@ -1,0 +1,31 @@
+{
+  "headers": {
+    "cross-origin-resource-policy": "cross-origin",
+    "x-fastly-request-id": "5e8282dccd2c19bad336f30f1dd4f5276ae16680",
+    "content-security-policy": "default-src 'none'; style-src 'unsafe-inline'; sandbox",
+    "x-served-by": "cache-bfi-krnt7300032-BFI",
+    "x-xss-protection": "1; mode=block",
+    "content-type": "text/plain; charset=utf-8",
+    "x-timer": "S1694797135.232820,VS0,VE123",
+    "via": "1.1 varnish",
+    "date": "Fri, 15 Sep 2023 16:58:55 GMT",
+    "x-cache": "MISS",
+    "vary": "Authorization,Accept-Encoding,Origin",
+    "accept-ranges": "bytes",
+    "etag": "W/\"9bfd26111957f1e216496ba51d474fb87ddf27aa77d7f42ccac2e47d2380eeda\"",
+    "expires": "Fri, 15 Sep 2023 17:03:55 GMT",
+    "strict-transport-security": "max-age=31536000",
+    "source-age": "0",
+    "x-cache-hits": "0",
+    "x-frame-options": "deny",
+    "x-github-request-id": "34DA:50F8:487B55:568CCC:65048D4C",
+    "access-control-allow-origin": "*",
+    "cache-control": "max-age=300",
+    "x-content-type-options": "nosniff"
+  },
+  "url": "https://raw.githubusercontent.com/NMathar/deno-express/master/src/functions/simpleLog.ts",
+  "now": {
+    "secs_since_epoch": 1694797135,
+    "nanos_since_epoch": 362619500
+  }
+}

@@ -1,0 +1,2 @@
+export { TrieRouter } from './router.ts';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImh0dHBzOi8vZGVuby5sYW5kL3gvaG9ub0B2My40LjEvcm91dGVyL3RyaWUtcm91dGVyL2luZGV4LnRzIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCB7IFRyaWVSb3V0ZXIgfSBmcm9tICcuL3JvdXRlci50cydcbiJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxTQUFTLFVBQVUsUUFBUSxjQUFhIn0=

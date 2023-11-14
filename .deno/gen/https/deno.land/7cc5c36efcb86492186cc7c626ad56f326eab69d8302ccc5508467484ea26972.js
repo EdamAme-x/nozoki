@@ -1,0 +1,2 @@
+export { RegExpRouter } from './router.ts';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImh0dHBzOi8vZGVuby5sYW5kL3gvaG9ub0B2My40LjEvcm91dGVyL3JlZy1leHAtcm91dGVyL2luZGV4LnRzIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCB7IFJlZ0V4cFJvdXRlciB9IGZyb20gJy4vcm91dGVyLnRzJ1xuIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLFNBQVMsWUFBWSxRQUFRLGNBQWEifQ==

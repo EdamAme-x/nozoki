@@ -1,0 +1,22 @@
+run = "deno run --lock=lock.json --lock-write --allow-all --watch main.ts"
+
+hidden = [".deno"]
+
+[languages.deno]
+pattern = "**/*.{ts,js}"
+[languages.deno.languageServer]
+start = ["deno", "lsp"]
+[languages.deno.languageServer.initializationOptions]
+enable = true
+lint = true
+
+[env]
+DENO_DIR = "/home/runner/${REPL_SLUG}/.deno"
+
+[nix]
+channel = "stable-23_05"
+
+[deployment]
+run = ["sh", "-c", "deno run --lock=lock.json --lock-write --allow-all main.ts"]
+deploymentTarget = "cloudrun"
+ignorePorts = false

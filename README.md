@@ -1,2 +1,2 @@
 # OpenChat nozoki
-Hono & etc
+Hono & XueryJS & Obs & Minify

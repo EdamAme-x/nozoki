@@ -1,0 +1,3 @@
+/* esm.sh - javascript-obfuscator@4.1.0 */
+export * from "/v133/javascript-obfuscator@4.1.0/denonext/javascript-obfuscator.mjs";
+export { default } from "/v133/javascript-obfuscator@4.1.0/denonext/javascript-obfuscator.mjs";

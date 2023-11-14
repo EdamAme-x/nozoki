@@ -1,0 +1,21 @@
+{
+  "headers": {
+    "x-content-source": "https://esmbuild.com",
+    "access-control-allow-origin": "*",
+    "content-type": "application/javascript; charset=utf-8",
+    "date": "Mon, 13 Nov 2023 23:51:00 GMT",
+    "nel": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}",
+    "access-control-allow-methods": "*",
+    "cf-ray": "825aeb901b9f6ce6-SEA",
+    "vary": "Origin, Accept-Encoding",
+    "server": "cloudflare",
+    "report-to": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=FfTirk%2B%2Fjn5dp%2FUVsSKjx8PJajnEPzOgATwCgdLN7Ns8XnOHPJlAwOubeLc23ZthKlUAkvDgMaUX%2FRtkLqrkIgh0JZvdgGdcxnHR5qFF6NvyD%2BGHi5Vn33Y%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "cache-control": "public, max-age=31536000, immutable"
+  },
+  "url": "https://esm.sh/v133/javascript-obfuscator@4.1.0/denonext/javascript-obfuscator.mjs",
+  "now": {
+    "secs_since_epoch": 1699919460,
+    "nanos_since_epoch": 970121171
+  }
+}

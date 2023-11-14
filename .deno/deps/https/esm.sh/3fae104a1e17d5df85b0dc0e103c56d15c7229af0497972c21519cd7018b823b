@@ -1,0 +1,2 @@
+import { TDictionary } from './TDictionary.d.ts';
+export type TIdentifierNamesCacheDictionary = TDictionary<string>;
