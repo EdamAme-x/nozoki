@@ -203,7 +203,7 @@ window.onload = function () {
           },
           placeholder: "~/ti/g2/~",
           class: tw(
-            "rounded text-md text-black border-none nuem-x bg-[#00000000] text-white focus:outline-none p-1"
+            "rounded text-md text-black border-none nuem-x bg-[#00000000] text-white focus:outline-none p-1 border-2 border-gray-700"
           ),
         }),
         button(
