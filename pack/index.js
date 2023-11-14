@@ -143,10 +143,15 @@ function logComponent(log) {
       div(
         {
           class: tw(
-            "w-4/5 overflow-hidden text-ellipsis text-sm text-white bg-gray-700 rounded p-1 chat-x"
+            "w-4/5 overflow-hidden text-ellipsis text-sm text-white bg-gray-700 rounded p-1 chat-x hover:bg-gray-800 hover:cursor-pointer hover:text-gray-300 transition duration-300"
           ),
+          $click: () => {
+            Swal.fire({
+              text: JSON.stringify(log.raw, null, 2),
+            })
+          }
         },
-        log.content ?? "< 画像 / 動画 / スタンプ・絵文字 / Flex / その他 >"
+        log.content ?? "< 画像 / 動画 / スタンプ・絵文字 / Flex / その他 >" // NOTE: 後で細かい区分
       ),
       div(
         {
