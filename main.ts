@@ -10,11 +10,6 @@ import { Context } from "https://deno.land/x/hono@v3.4.1/context.ts";
 
 const app: Hono = new Hono();
 
-app.get(
-  "/",
-  (c: Context) => c.text("Coming soon... Created by @amex2189 / ame_x"),
-);
-
 app.post("/check", (c: Context) => c.text("success"));
 
 app.get(
@@ -24,8 +19,7 @@ app.get(
   }) as unknown as Handler,
 );
 
-// NOTE: to Main Handler
-app.get("/preview", async (c: Context) => {
+app.get("/", async (c: Context) => {
   const html = await Deno.readTextFile("./pack/index.html");
   return c.html(html);
 });
