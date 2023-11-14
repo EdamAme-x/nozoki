@@ -9,7 +9,7 @@ body {
 }
 
 #app {
-  width: 350px;
+  width: 330px;
   max-height: 100vh;
   overflow-y: hidden;
   font-family: "Graphik LC Web" -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica !important;
@@ -31,6 +31,10 @@ h1 {
 
 .log-x {
   scrollbar-width: thin;
+}
+
+.log-x::-webkit-scrollbar {
+  display: none;
 }
 
 .nuem-x {

@@ -23,7 +23,9 @@ let lastMessage = "";
 function getCurrentTime() {
   const now = new Date();
 
-  return `${now.getHours()}:${now.getMinutes()}`;
+  return `${now.getHours().toString().padStart(2, "0")}:${
+    now.getMinutes().toString().padStart(2, "0")
+  }`;
 }
 
 function getTicket(url) {
@@ -80,7 +82,9 @@ function start() {
 
 function logComponent(log) {
   console.log(log);
-  return div({}, `${log.name}:${log.content}:${log.time}`);
+  return div({
+    class: tw("w-full"),
+  }, span({}, log.name));
 }
 
 window.onload = function () {
@@ -131,7 +135,7 @@ window.onload = function () {
     ),
     div({
       class: tw(
-        "h-full overflow-y-scroll log-x w-[320px] bg-[#282828] rounded",
+        "h-full overflow-y-scroll log-x w-[275px] bg-[#282828] rounded p-2",
       ),
       id: "log",
     }),
@@ -142,8 +146,9 @@ window.onload = function () {
           class: tw("mt-2"),
         },
         "&copy;",
-        span({
-          class: tw("text-red-500 ml-1"),
+        a({
+          class: tw("text-red-500 mx-1"),
+          href: "https://twitter.com/amex2189",
         }, "ame_x"),
         span({
           class: tw("mx-1"),
