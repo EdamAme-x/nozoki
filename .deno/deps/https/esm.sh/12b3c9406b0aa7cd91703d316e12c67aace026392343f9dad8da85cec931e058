@@ -1,3 +1,0 @@
-import { TTypeFromEnum } from '../utils/TTypeFromEnum.d.ts';
-import { RenamePropertiesMode } from '../../enums/node-transformers/rename-properties-transformers/RenamePropertiesMode.d.ts';
-export type TRenamePropertiesMode = TTypeFromEnum<typeof RenamePropertiesMode>;

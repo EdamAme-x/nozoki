@@ -1,3 +1,0 @@
-import { TDictionary } from '../TDictionary.d.ts';
-import { IOptions } from '../../interfaces/options/IOptions.d.ts';
-export type TInputOptions = Partial<Pick<IOptions, keyof IOptions>> & TDictionary;

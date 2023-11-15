@@ -1,3 +1,0 @@
-import { TTypeFromEnum } from '../utils/TTypeFromEnum.d.ts';
-import { OptionsPreset } from '../../enums/options/presets/OptionsPreset.d.ts';
-export type TOptionsPreset = TTypeFromEnum<typeof OptionsPreset>;

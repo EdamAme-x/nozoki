@@ -1,4 +1,0 @@
-import { IObfuscationResult } from '../interfaces/source-code/IObfuscationResult.d.ts';
-export type TObfuscationResultsObject<TSourceCodesObject> = {
-    [key in keyof TSourceCodesObject]: IObfuscationResult;
-};

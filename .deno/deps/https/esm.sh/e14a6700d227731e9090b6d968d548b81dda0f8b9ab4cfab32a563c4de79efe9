@@ -1,9 +1,0 @@
-import { TIdentifierNamesCache } from '../../types/TIdentifierNamesCache.d.ts';
-import { IInitializable } from '../IInitializable.d.ts';
-import { IOptions } from '../options/IOptions.d.ts';
-export interface IObfuscationResult extends IInitializable<[string, string]> {
-    getIdentifierNamesCache(): TIdentifierNamesCache;
-    getObfuscatedCode(): string;
-    getOptions(): IOptions;
-    getSourceMap(): string;
-}

@@ -1,3 +1,0 @@
-import { TTypeFromEnum } from '../utils/TTypeFromEnum.d.ts';
-import { StringArrayEncoding } from '../../enums/node-transformers/string-array-transformers/StringArrayEncoding.d.ts';
-export type TStringArrayEncoding = TTypeFromEnum<typeof StringArrayEncoding>;
