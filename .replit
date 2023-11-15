@@ -1,6 +1,7 @@
 run = "deno run --lock=lock.json --lock-write --allow-all --watch main.ts"
 
 hidden = [".deno"]
+entrypoint = "index.ts"
 
 [languages.deno]
 pattern = "**/*.{ts,js}"

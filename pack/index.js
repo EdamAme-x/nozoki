@@ -16,7 +16,7 @@ let logs = [
     name: "ame_x@amex2189",
     content: "皆さんこんにちは！ このメッセージはサンプルです。",
     time: getCurrentTime(),
-    raw: {}
+    raw: {},
   },
 ];
 
@@ -30,10 +30,12 @@ let lastMessage = "";
 function getCurrentTime() {
   const now = new Date();
 
-  return `${now.getHours().toString().padStart(2, "0")}:${now
-    .getMinutes()
-    .toString()
-    .padStart(2, "0")}`;
+  return `${now.getHours().toString().padStart(2, "0")}:${
+    now
+      .getMinutes()
+      .toString()
+      .padStart(2, "0")
+  }`;
 }
 
 /**
@@ -92,11 +94,10 @@ function start() {
 
     if (lastMessage !== res.sendBy + res.text) {
       logs.push({
-        name:
-          res.sendBy ? (res.senderName ? res.senderName : "MEMBER") : "BOT", 
+        name: res.sendBy ? (res.senderName ? res.senderName : "MEMBER") : "BOT",
         content: res.text,
         time: getCurrentTime(),
-        raw: res
+        raw: res,
       });
 
       lastMessage = res.sendBy + res.text;
@@ -132,9 +133,9 @@ function logComponent(log) {
     },
     span(
       {
-        class: tw("ml-3 text-gray-400 w-2/3 overflow-hidden"),
+        class: tw("ml-3 text-sm text-gray-400 w-2/3 overflow-hidden"),
       },
-      log.name
+      log.name,
     ),
     div(
       {
@@ -143,25 +144,58 @@ function logComponent(log) {
       div(
         {
           class: tw(
-            "w-4/5 overflow-hidden text-ellipsis text-sm text-white bg-gray-700 rounded p-1 chat-x hover:bg-gray-800 hover:cursor-pointer hover:text-gray-300 transition duration-300"
+            "w-4/5 overflow-hidden text-ellipsis text-sm text-white bg-gray-700 rounded p-1 chat-x hover:bg-gray-800 hover:cursor-pointer hover:text-gray-300 transition duration-300",
           ),
-          $click: () => {
-            Swal.fire({
-              text: JSON.stringify(log.raw, null, 2),
-            })
-          }
         },
-        log.content ?? "< 画像 / 動画 / スタンプ・絵文字 / Flex / その他 >" // NOTE: 後で細かい区分
+        log.content ?? "< 画像 / 動画 / スタンプ・絵文字 / Flex / その他 >", // NOTE: 後で細かい区分
       ),
       div(
         {
           class: tw(
-            "w-1/5 text-right text-gray-400 text-sm flex flex-col items-center justify-end"
+            "w-1/5 text-right text-gray-400 text-sm flex flex-col items-center justify-end",
           ),
         },
-        log.time
-      )
-    )
+        log.time,
+      ),
+    ),
+    div(
+      {
+        class: tw(
+          "text-xs transform scale-[0.9] ml-3 mt-[1px] w-4/5 flex justify-right space-x-2 pr-2",
+        ),
+      },
+      span({
+        $click: () => {
+          window.open("line://nv/profilePopup/mid=" + log.raw.sendBy, "_blank");
+        },
+      }, "Report"),
+      span({
+        class: tw("ml-1")
+      }, "|"),
+      span({
+        $click: () => {
+          Swal.fire({
+            text: JSON.stringify(log.raw, null, 2),
+          });
+        },
+      }, "RawData"),
+      span({
+        class: tw("ml-1")
+      }, "|"),
+      span({
+        $click: () => {
+          const shareText = `${log.name} ${log.time}
+----
+${log.content}
+----
+Report: ${"line://nv/profilePopup/mid=" + log.raw.sendBy}
+----
+By https://nozoki.deno.dev`;
+
+        window.open("line://share?text=" + encodeURIComponent(shareText), "_blank");
+      }
+      }, "Share")
+    ),
   );
 }
 
@@ -190,8 +224,8 @@ window.onload = function () {
             height: "30px",
             class: tw("mr-4 h-[30px]"),
           }),
-          "OC Observer"
-        )
+          "OC Observer",
+        ),
       ),
       div(
         {
@@ -203,22 +237,22 @@ window.onload = function () {
           },
           placeholder: "~/ti/g2/~",
           class: tw(
-            "rounded text-md text-black border-none nuem-x bg-[#00000000] text-white focus:outline-none p-1 border-2 border-gray-300"
+            "rounded text-md text-black border-none nuem-x bg-[#00000000] text-white focus:outline-none p-1 border-2 border-gray-300",
           ),
         }),
         button(
           {
             $click: start,
             class: tw(
-              "py-[6px] px-3 ml-2 rounded bg-gray-700 text-white border-none hover:bg-gray-600 focus"
+              "py-[6px] px-3 ml-2 rounded bg-gray-700 text-white border-none hover:bg-gray-600 focus",
             ),
           },
-          "Start"
-        )
+          "Start",
+        ),
       ),
       div({
         class: tw(
-          "h-full overflow-y-scroll log-x w-[275px] bg-[#282828] rounded p-2"
+          "h-full overflow-y-scroll log-x w-[275px] bg-[#282828] rounded p-2",
         ),
         id: "log",
       }),
@@ -227,16 +261,22 @@ window.onload = function () {
           class: tw("mt-1 flex flex-row items-center h-[50px] w-[275px]"),
         },
         button({
-          class: tw("w-1/2 rounded bg-gray-700 text-white border-none hover:bg-gray-600 focus"),
+          class: tw(
+            "w-1/2 rounded bg-gray-700 text-white border-none hover:bg-gray-600 focus",
+          ),
           $click: () => {
             $("#log").out.scrollTop = $("#log").out.scrollHeight;
-          }
+          },
         }, "Down"),
         button({
-          class: tw("w-1/2 rounded bg-gray-700 text-white border-none hover:bg-gray-600 focus"),
+          class: tw(
+            "w-1/2 rounded bg-gray-700 text-white border-none hover:bg-gray-600 focus",
+          ),
           $click: () => {
             const textarea = document.createElement("textarea");
-            textarea.value = logs.map(log => `${log.name}: ${log.time} ${log.content}`).join("\n");
+            textarea.value = logs.map((log) =>
+              `${log.name}: ${log.time} ${log.content}`
+            ).join("\n");
             document.body.appendChild(textarea);
             textarea.select();
             document.execCommand("copy");
@@ -247,9 +287,9 @@ window.onload = function () {
               title: "完了",
               text: "ログをコピーしました",
               confirmButtonText: "OK",
-            })
-          }
-        }, "Export")
+            });
+          },
+        }, "Export"),
       ),
       div(
         {},
@@ -263,23 +303,23 @@ window.onload = function () {
               class: tw("text-red-500 mx-1"),
               href: "https://twitter.com/amex2189",
             },
-            "ame_x"
+            "ame_x",
           ),
           span(
             {
               class: tw("mx-1"),
             },
-            "&"
+            "&",
           ),
           span(
             {
               class: tw("text-green-500 ml-1"),
             },
-            "piloking"
-          )
-        )
-      )
-    )
+            "piloking",
+          ),
+        ),
+      ),
+    ),
   );
   $("#log").out.appendChild(logComponent(logs[logs.length - 1]));
 };
