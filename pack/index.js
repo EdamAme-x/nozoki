@@ -4,6 +4,7 @@
 */
 import { tw } from "https://cdn.skypack.dev/twind";
 import Swal from "https://esm.sh/sweetalert2@11.9.0";
+import escapeHtml from 'https://cdn.jsdelivr.net/npm/escape-html@1.0.3/+esm'
 
 console.log("Welcome to Nozoki OC / Frontend by @amex2189");
 
@@ -14,7 +15,7 @@ let started = false;
 let logs = [
   {
     name: "ame_x@amex2189",
-    content: "皆さんこんにちは！ このメッセージはサンプルです。",
+    content: "皆さんこんにちは！ \n このメッセージはサンプルです。",
     time: getCurrentTime(),
     raw: {},
   },
@@ -65,7 +66,7 @@ async function getLastMessage(url) {
 
   return data;
 }
-/** 
+/**
  * Determine the type of message object in the argument
  * @return {string} Message Type
  */
@@ -172,8 +173,10 @@ function logComponent(log) {
           class: tw(
             "w-4/5 overflow-hidden text-ellipsis text-sm text-white bg-gray-700 rounded p-1 chat-x hover:bg-gray-800 hover:cursor-pointer hover:text-gray-300 transition duration-300",
           ),
+          raw: log.content
+            ? escapeHtml(log.content).replace(/\n/gmi, "<br />")
+            : whatType(log.raw),
         },
-        log.content ?? whatType(log.raw), // NOTE: 後で細かい区分
       ),
       div(
         {
@@ -196,7 +199,7 @@ function logComponent(log) {
         },
       }, "Report"),
       span({
-        class: tw("ml-1")
+        class: tw("ml-1"),
       }, "|"),
       span({
         $click: () => {
@@ -206,7 +209,7 @@ function logComponent(log) {
         },
       }, "RawData"),
       span({
-        class: tw("ml-1")
+        class: tw("ml-1"),
       }, "|"),
       span({
         $click: () => {
@@ -218,9 +221,12 @@ Report: ${"line://nv/profilePopup/mid=" + log.raw.sendBy}
 ----
 By https://nozoki.deno.dev`;
 
-        window.open("line://share?text=" + encodeURIComponent(shareText), "_blank");
-      }
-      }, "Share")
+          window.open(
+            "line://share?text=" + encodeURIComponent(shareText),
+            "_blank",
+          );
+        },
+      }, "Share"),
     ),
   );
 }
