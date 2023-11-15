@@ -4,7 +4,7 @@
 */
 import { tw } from "https://cdn.skypack.dev/twind";
 import Swal from "https://esm.sh/sweetalert2@11.9.0";
-import escapeHtml from 'https://cdn.jsdelivr.net/npm/escape-html@1.0.3/+esm'
+import escapeHtml from "https://cdn.jsdelivr.net/npm/escape-html@1.0.3/+esm";
 
 console.log("Welcome to Nozoki OC / Frontend by @amex2189");
 
@@ -23,17 +23,20 @@ let logs = [
 
 let lastMessage = "";
 
-/** 
+/**
  * String to Mention tag
  * @return {string} parsed
  */
 function convertAtMentions(str) {
-  let cols = str.split("\n")
+  let cols = str.split("\n");
   const regex = /@(.+) /g;
 
   for (let i = 0; i < cols.length; i++) {
     cols[i] = cols[i].replace(regex, (match, p1) => {
-      return match.replaceAll("@" + p1, `<a style="color: skyblue">@${p1} </a>`);
+      return match.replaceAll(
+        "@" + p1,
+        `<a style="color: skyblue">@${p1} </a>`,
+      );
     });
   }
 
@@ -191,7 +194,10 @@ function logComponent(log) {
             "w-4/5 overflow-hidden text-ellipsis text-sm text-white bg-gray-700 rounded p-1 chat-x hover:bg-gray-800 hover:cursor-pointer hover:text-gray-300 transition duration-300",
           ),
           raw: log.content
-            ? convertAtMentions(escapeHtml(log.content)).replace(/\n/gmi, "<br />")
+            ? convertAtMentions(escapeHtml(log.content)).replace(
+              /\n/gmi,
+              "<br />",
+            )
             : whatType(log.raw),
         },
       ),
@@ -346,7 +352,7 @@ window.onload = function () {
           {
             class: tw("mt-2"),
           },
-          "&copy;",
+          "©",
           a(
             {
               class: tw("text-red-500 mx-1"),
