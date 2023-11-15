@@ -25,9 +25,9 @@ app.get("/", async (c: Context) => {
 });
 
 app.get("/runtime", async () => {
+  const base: string = await Deno.readTextFile("./pack/index.js");
+
   try {
-    const base: string = await Deno.readTextFile("./pack/index.js");
-
     const js: obs.ObfuscationResult = obs.obfuscate(
       base,
     );
@@ -37,19 +37,22 @@ app.get("/runtime", async () => {
         "Content-Type": "text/javascript",
       }),
     });
-  }catch (_e) {
+  } catch (_e) {
     // ReAction
-    const base: string = await Deno.readTextFile("./pack/index.js");
 
-    const js: obs.ObfuscationResult = obs.obfuscate(
-      base,
-    );
-
-    return new Response(minify("js", js.getObfuscatedCode()), {
-      headers: new Headers({
-        "Content-Type": "text/javascript",
-      }),
-    });
+    try {
+      return new Response(base, {
+        headers: new Headers({
+          "Content-Type": "text/javascript",
+        }),
+      });
+    } catch (_e) {
+      return new Response("window.location.reload()", {
+        headers: new Headers({
+          "Content-Type": "text/javascript",
+        }),
+      });
+    }
   }
 });
 

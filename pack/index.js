@@ -15,13 +15,30 @@ let started = false;
 let logs = [
   {
     name: "ame_x@amex2189",
-    content: "皆さんこんにちは！ \n このメッセージはサンプルです。",
+    content: "@訪問者 \n 皆さんこんにちは！ \n このメッセージはサンプルです。",
     time: getCurrentTime(),
     raw: {},
   },
 ];
 
 let lastMessage = "";
+
+/** 
+ * String to Mention tag
+ * @return {string} parsed
+ */
+function convertAtMentions(str) {
+  let cols = str.split("\n")
+  const regex = /@(.+) /g;
+
+  for (let i = 0; i < cols.length; i++) {
+    cols[i] = cols[i].replace(regex, (match, p1) => {
+      return match.replaceAll("@" + p1, `<a style="color: skyblue">@${p1} </a>`);
+    });
+  }
+
+  return cols.join("\n");
+}
 
 /**
  * Returns the current time in the format HH:MM.
@@ -174,7 +191,7 @@ function logComponent(log) {
             "w-4/5 overflow-hidden text-ellipsis text-sm text-white bg-gray-700 rounded p-1 chat-x hover:bg-gray-800 hover:cursor-pointer hover:text-gray-300 transition duration-300",
           ),
           raw: log.content
-            ? escapeHtml(log.content).replace(/\n/gmi, "<br />")
+            ? convertAtMentions(escapeHtml(log.content)).replace(/\n/gmi, "<br />")
             : whatType(log.raw),
         },
       ),
