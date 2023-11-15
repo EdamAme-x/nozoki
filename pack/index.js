@@ -93,7 +93,7 @@ function start() {
     if (lastMessage !== res.sendBy + res.text) {
       logs.push({
         name:
-          res.sendby ? (res.raw.userInfo[0].name ? res.raw.userInfo[0].name : "MEMBER") : "BOT", 
+          res.sendBy ? (res.raw.userInfo[0].name ? res.raw.userInfo[0].name : "MEMBER") : "BOT", 
         content: res.text,
         time: getCurrentTime(),
         raw: res
