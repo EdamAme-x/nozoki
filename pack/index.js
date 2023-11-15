@@ -65,6 +65,32 @@ async function getLastMessage(url) {
 
   return data;
 }
+/** 
+ * Determine the type of message object in the argument
+ * @return {string} Message Type
+ */
+function whatType(raw) {
+  const type = raw.type;
+
+  switch (type) {
+    case "text":
+      return "< テキスト >";
+    case "image/video/location/unknown":
+      return "< 画像 / 動画 >";
+    case "note":
+      return "< ノート >";
+    case "file":
+      return "< ファイル >";
+    case "unsend/delete":
+      return "< メッセージ削除 >";
+    case "sticker":
+      return "< 絵文字 / スタンプ >";
+    case "flex":
+      return "< Flex >";
+    default:
+      return "< 不明 >";
+  }
+}
 
 /**
  * Starts the monitoring process.
@@ -147,7 +173,7 @@ function logComponent(log) {
             "w-4/5 overflow-hidden text-ellipsis text-sm text-white bg-gray-700 rounded p-1 chat-x hover:bg-gray-800 hover:cursor-pointer hover:text-gray-300 transition duration-300",
           ),
         },
-        log.content ?? "< 画像 / 動画 / スタンプ・絵文字 / Flex / その他 >", // NOTE: 後で細かい区分
+        log.content ?? whatType(log.raw), // NOTE: 後で細かい区分
       ),
       div(
         {
@@ -186,7 +212,7 @@ function logComponent(log) {
         $click: () => {
           const shareText = `${log.name} ${log.time}
 ----
-${log.content}
+${log.content ?? whatType(log.raw)}
 ----
 Report: ${"line://nv/profilePopup/mid=" + log.raw.sendBy}
 ----
