@@ -371,7 +371,7 @@ window.onload = function () {
           $click: () => {
             const textarea = document.createElement("textarea");
             textarea.value = logs.map((log) =>
-              `${log.name}: ${log.time} ${log.content}`
+              `${log.name}: ${log.time} ${log.content ?? log.type}`
             ).join("\n");
             document.body.appendChild(textarea);
             textarea.select();
