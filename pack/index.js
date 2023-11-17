@@ -105,7 +105,7 @@ function whatType(raw) {
     case "unsend/delete":
       return "< メッセージ削除 >";
     case "sticker":
-      return "< 絵文字 / スタンプ >";
+      return "< スタンプ >";
     case "flex":
       return "< Flex >";
     default:
@@ -133,10 +133,23 @@ function convertEmoji(text, raw) {
             "{sticonId}",
             sticons[count - 1]["sticonId"],
           );
-      return `<img src="${imgUrl}" alt="sticon" class="${tw("h-[18px] inline mx-[2px]")} sticon" height="20"/>`;
+      return `<img src="${imgUrl}" alt="sticon" class="${tw("h-[18px] inline mx-[1px]")} sticon" height="20"/>`;
     });
   }
 
+  return text;
+}
+
+function convertStamp(text, raw) {
+
+  console.log(raw.type)
+  if (raw.type === "sticker") {
+    // スタンプにパース
+    const imgUrl = `https://stickershop.line-scdn.net/stickershop/v1/sticker/{stkId}/android/sticker.png?v=1`.replace("{stkId}", raw["stkId"])
+
+    return `<img src="${imgUrl}" alt="stamp" />`
+  }
+  
   return text;
 }
 
@@ -221,7 +234,7 @@ function logComponent(log) {
             "w-4/5 overflow-hidden text-ellipsis text-sm text-white bg-gray-700 rounded p-1 chat-x hover:bg-gray-800 hover:cursor-pointer hover:text-gray-300 transition duration-300",
           ),
           raw: log.content
-            ? convertAtMentions(convertEmoji(escapeHtml(log.content), log.raw))
+            ? convertAtMentions(convertStamp(convertEmoji(escapeHtml(log.content), log.raw), log.raw))
               .replace(
                 /\n/gmi,
                 "\n",
