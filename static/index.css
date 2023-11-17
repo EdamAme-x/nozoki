@@ -47,3 +47,7 @@ h1 {
   border: none;
   outline: none;
 }
+
+.sticon {
+  vertical-align: middle;
+}

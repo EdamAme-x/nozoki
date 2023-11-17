@@ -113,6 +113,33 @@ function whatType(raw) {
   }
 }
 
+function convertEmoji(text, raw) {
+  if (text.includes("(emoji)") && typeof raw["sticon"] !== undefined) {
+    const regex = /(\(emoji\))/g;
+    let count = 0;
+    const sticons = raw["sticon"]["resources"]; // [{}...]
+    const sticonCount = sticons.length;
+
+    text = text.replace(regex, (match) => {
+      count++;
+      if (count > sticonCount) {
+        return match;
+      }
+
+      // parse https://stickershop.line-scdn.net/sticonshop/v1/sticon/{productId}/android/{sticonId}.png
+      const imgUrl =
+        `https://stickershop.line-scdn.net/sticonshop/v1/sticon/{productId}/android/{sticonId}.png`
+          .replace("{productId}", sticons[count - 1]["productId"]).replace(
+            "{sticonId}",
+            sticons[count - 1]["sticonId"],
+          );
+      return `<img src="${imgUrl}" alt="sticon" class="${tw("h-[18px] inline mx-[2px]")} sticon" height="20"/>`;
+    });
+  }
+
+  return text;
+}
+
 /**
  * Starts the monitoring process.
  *
@@ -142,7 +169,7 @@ function start() {
     if (lastMessage !== res.sendBy + res.text) {
       logs.push({
         name: res.sendBy ? (res.senderName ? res.senderName : "MEMBER") : "BOT",
-        content: res.text,
+        content: res.text ?? whatType(res),
         time: getCurrentTime(),
         raw: res,
       });
@@ -194,10 +221,11 @@ function logComponent(log) {
             "w-4/5 overflow-hidden text-ellipsis text-sm text-white bg-gray-700 rounded p-1 chat-x hover:bg-gray-800 hover:cursor-pointer hover:text-gray-300 transition duration-300",
           ),
           raw: log.content
-            ? convertAtMentions(escapeHtml(log.content)).replace(
-              /\n/gmi,
-              "<br />",
-            )
+            ? convertAtMentions(convertEmoji(escapeHtml(log.content), log.raw))
+              .replace(
+                /\n/gmi,
+                "\n",
+              )
             : whatType(log.raw),
         },
       ),
