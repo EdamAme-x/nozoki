@@ -15,7 +15,7 @@ let started = false;
 let logs = [
   {
     name: "ame_x@amex2189",
-    content: "@訪問者 \n 皆さんこんにちは！ \n このメッセージはサンプルです。",
+    content: "@訪問者 \n 皆さんこんにちは！ \n このメッセージはサンプルです。 \n\n お知らせ: 絵文字とスタンプに対応しました。良ければこのツールを広めてください！ \n Twitterもフォローして頂けるとありがたいです。",
     time: getCurrentTime(),
     raw: {},
   },
@@ -133,7 +133,9 @@ function convertEmoji(text, raw) {
             "{sticonId}",
             sticons[count - 1]["sticonId"],
           );
-      return `<img src="${imgUrl}" alt="sticon" class="${tw("h-[18px] inline mx-[1px]")} sticon" height="20"/>`;
+      return `<img src="${imgUrl}" alt="sticon" class="${
+        tw("h-[18px] inline mx-[1px]")
+      } sticon" height="20"/>`;
     });
   }
 
@@ -141,15 +143,16 @@ function convertEmoji(text, raw) {
 }
 
 function convertStamp(text, raw) {
-
-  console.log(raw.type)
+  console.log(raw.type);
   if (raw.type === "sticker") {
     // スタンプにパース
-    const imgUrl = `https://stickershop.line-scdn.net/stickershop/v1/sticker/{stkId}/android/sticker.png?v=1`.replace("{stkId}", raw["stkId"])
+    const imgUrl =
+      `https://stickershop.line-scdn.net/stickershop/v1/sticker/{stkId}/android/sticker.png?v=1`
+        .replace("{stkId}", raw["stkId"]);
 
-    return `<img src="${imgUrl}" alt="stamp" />`
+    return `<img src="${imgUrl}" alt="stamp" />`;
   }
-  
+
   return text;
 }
 
@@ -234,10 +237,15 @@ function logComponent(log) {
             "w-4/5 overflow-hidden text-ellipsis text-sm text-white bg-gray-700 rounded p-1 chat-x hover:bg-gray-800 hover:cursor-pointer hover:text-gray-300 transition duration-300",
           ),
           raw: log.content
-            ? convertAtMentions(convertStamp(convertEmoji(escapeHtml(log.content), log.raw), log.raw))
+            ? convertAtMentions(
+              convertStamp(
+                convertEmoji(escapeHtml(log.content), log.raw),
+                log.raw,
+              ),
+            )
               .replace(
                 /\n/gmi,
-                "\n",
+                "<br />",
               )
             : whatType(log.raw),
         },
