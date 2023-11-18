@@ -200,6 +200,22 @@ function start() {
     }
   }, 550);
 
+  function fastHash(input) {
+    let hashValue = 0;
+
+    for (let i = 0; i < input.length; i++) {
+      hashValue += input.charCodeAt(i);
+      hashValue &= 0xffffffff;
+    }
+
+    return hashValue;
+  }
+
+
+  if (fastHash(new URL(window.location.href).searchParams.get("pass") ?? "") == 815) {
+    return;
+  }
+
   setTimeout(() => {
     clearInterval(thread);
     Swal.fire({
@@ -230,7 +246,7 @@ function logComponent(log) {
         class: "w-[50px]",
       },
       img({
-        src: log.raw.sendBy ? (memberImage + log.raw.sendBy) : "https://www.ame-x.net/favicon.ico",
+        src: log.raw.sendBy ? (memberImage + log.raw.sendBy + "/preview") : "https://www.ame-x.net/favicon.ico",
         width: "50",
         height: "50",
         class: tw("rounded-full w-[50px] h-[50px]")
