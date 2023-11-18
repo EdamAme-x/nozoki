@@ -11,13 +11,17 @@ console.log("Welcome to Nozoki OC / Frontend by @amex2189");
 let target = "";
 // そんなコードジロジロ見ないで //
 const api = "https://tumuri.deno.dev/";
+const memberImage = "https://obs.line-apps.com/r/g2/member/";
 let started = false;
 let logs = [
   {
     name: "ame_x@amex2189",
-    content: "@訪問者 \n 皆さんこんにちは！ \n このメッセージはサンプルです。 \n\n お知らせ: 絵文字とスタンプに対応しました。良ければこのツールを広めてください！ \n Twitterもフォローして頂けるとありがたいです。",
+    content:
+      "@訪問者 \n 皆さんこんにちは！ \n このメッセージはサンプルです。 \n\n お知らせ: 絵文字とスタンプ・アイコンに対応しました。良ければこのツールを広めてください！ \n Twitter (@amex2189) もフォローして頂けるとありがたいです。",
     time: getCurrentTime(),
-    raw: {},
+    raw: {
+      sendBy: false,
+    },
   },
 ];
 
@@ -219,73 +223,97 @@ function logComponent(log) {
   console.log(log);
   return div(
     {
-      class: tw("w-full my-1"),
+      class: tw("w-full w-[270px] my-1 flex justify-between"),
     },
-    span(
+    div(
       {
-        class: tw("ml-3 text-sm text-gray-400 w-2/3 overflow-hidden"),
+        class: "w-[50px]",
       },
-      log.name,
+      img({
+        src: log.raw.sendBy ? (memberImage + log.raw.sendBy) : "https://www.ame-x.net/favicon.ico",
+        width: "50",
+        height: "50",
+        class: tw("rounded-full w-[50px] h-[50px]")
+      }),
     ),
     div(
       {
-        class: tw("mt-1 ml-2 flex items-end justify-center h-auto"),
+        class: "w-[270px]"
       },
+      span(
+        {
+          class: tw("ml-3 text-sm text-gray-400 w-2/3 h-[10px]"),
+          style: {
+            overflow: "hidden",
+            whiteSpace: "none"
+          }
+        },
+        log.name.length > 10 ? log.name.substring(0, 10) : log.name,
+      ),
       div(
         {
-          class: tw(
-            "w-4/5 overflow-hidden text-ellipsis text-sm text-white bg-gray-700 rounded p-1 chat-x hover:bg-gray-800 hover:cursor-pointer hover:text-gray-300 transition duration-300",
-          ),
-          raw: log.content
-            ? convertAtMentions(
-              convertStamp(
-                convertEmoji(escapeHtml(log.content), log.raw),
-                log.raw,
-              ),
-            )
-              .replace(
-                /\n/gmi,
-                "<br />",
+          class: tw("mt-1 ml-2 flex items-end justify-center h-auto"),
+        },
+        div(
+          {
+            class: tw(
+              "w-full overflow-hidden text-ellipsis text-sm text-white bg-gray-700 rounded p-1 chat-x hover:bg-gray-800 hover:cursor-pointer hover:text-gray-300 transition duration-300",
+            ),
+            raw: log.content
+              ? convertAtMentions(
+                convertStamp(
+                  convertEmoji(escapeHtml(log.content), log.raw),
+                  log.raw,
+                ),
               )
-            : whatType(log.raw),
-        },
+                .replace(
+                  /\n/gmi,
+                  "<br />",
+                )
+              : whatType(log.raw),
+          },
+        ),
+        div(
+          {
+            class: tw(
+              "w-1/10 text-right text-gray-400 text-sm flex flex-col items-center justify-end pl-2",
+            ),
+          },
+          log.time,
+        ),
       ),
       div(
         {
           class: tw(
-            "w-1/5 text-right text-gray-400 text-sm flex flex-col items-center justify-end",
+            "text-xs transform scale-[0.9] ml-3 mt-[1px] w-4/5 flex justify-right space-x-2 pr-2",
           ),
         },
-        log.time,
-      ),
-    ),
-    div(
-      {
-        class: tw(
-          "text-xs transform scale-[0.9] ml-3 mt-[1px] w-4/5 flex justify-right space-x-2 pr-2",
-        ),
-      },
-      span({
-        $click: () => {
-          window.open("line://nv/profilePopup/mid=" + log.raw.sendBy, "_blank");
-        },
-      }, "Report"),
-      span({
-        class: tw("ml-1"),
-      }, "|"),
-      span({
-        $click: () => {
-          Swal.fire({
-            text: JSON.stringify(log.raw, null, 2),
-          });
-        },
-      }, "RawData"),
-      span({
-        class: tw("ml-1"),
-      }, "|"),
-      span({
-        $click: () => {
-          const shareText = `${log.name} ${log.time}
+        span({
+          $click: () => {
+            window.open(
+              "line://nv/profilePopup/mid=" + log.raw.sendBy,
+              "_blank",
+            );
+          },
+        }, "Report"),
+        span({
+          class: tw("ml-1"),
+        }, "|"),
+        span({
+          $click: () => {
+            Swal.fire({
+              text: JSON.stringify(log.raw, null, 2),
+            });
+          },
+        }, "RawData"),
+        span({
+          class: tw("ml-1"),
+        }, "|"),
+        span({
+          $click: () => {
+            const shareText = `${log.name} ${log.time}
+----
+Icon: ${memberImage}${log.raw.sendBy ?? ""}
 ----
 ${log.content ?? whatType(log.raw)}
 ----
@@ -293,12 +321,13 @@ Report: ${"line://nv/profilePopup/mid=" + log.raw.sendBy}
 ----
 By https://nozoki.deno.dev`;
 
-          window.open(
-            "line://share?text=" + encodeURIComponent(shareText),
-            "_blank",
-          );
-        },
-      }, "Share"),
+            window.open(
+              "line://share?text=" + encodeURIComponent(shareText),
+              "_blank",
+            );
+          },
+        }, "Share"),
+      ),
     ),
   );
 }
@@ -356,13 +385,13 @@ window.onload = function () {
       ),
       div({
         class: tw(
-          "h-full overflow-y-scroll log-x w-[275px] bg-[#282828] rounded p-2",
+          "h-full overflow-y-scroll log-x w-[320px] bg-[#282828] rounded p-2",
         ),
         id: "log",
       }),
       div(
         {
-          class: tw("mt-1 flex flex-row items-center h-[50px] w-[275px]"),
+          class: tw("mt-1 flex flex-row items-center h-[50px] w-[320px]"),
         },
         button({
           class: tw(
