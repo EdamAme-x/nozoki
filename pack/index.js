@@ -17,7 +17,7 @@ let logs = [
   {
     name: "ame_x@amex2189",
     content:
-      "@訪問者 \n 皆さんこんにちは！ \n このメッセージはサンプルです。 \n\n お知らせ: 絵文字とスタンプ・アイコンに対応しました。良ければこのツールを広めてください！ \n Twitter (@amex2189) もフォローして頂けるとありがたいです。",
+      "@訪問者 \n お知らせ: 絵文字とスタンプ・アイコン・画像に対応しました。良ければこのツールを広めてください！ \n Twitter (@amex2189) もフォローして頂けるとありがたいです。 \n プロ版を作りました！ \n 常時起動・画像・動画も覗き見等が出来ます。購入は https://honmono.ame-x.net まで！",
     time: getCurrentTime(),
     raw: {
       sendBy: false,
@@ -45,6 +45,17 @@ function convertAtMentions(str) {
   }
 
   return cols.join("\n");
+}
+
+function convertImage(msg, raw) {
+  if (raw.type === "image/video/location/unknown" && raw.msgId) {
+    return `<img src="${
+      api + "data?msgId=" + raw.msgId + "&pass=" +
+      new URL(window.location.href).searchParams.get("pass")
+    }" alt="画像を監視できるのは有料版のみです。" />`;
+  }
+
+  return msg;
 }
 
 /**
@@ -117,6 +128,17 @@ function whatType(raw) {
   }
 }
 
+function fastHash(input) {
+  let hashValue = 0;
+
+  for (let i = 0; i < input.length; i++) {
+    hashValue += input.charCodeAt(i);
+    hashValue &= 0xffffffff;
+  }
+
+  return hashValue;
+}
+
 function convertEmoji(text, raw) {
   if (text.includes("(emoji)") && typeof raw["sticon"] !== undefined) {
     const regex = /(\(emoji\))/g;
@@ -165,7 +187,7 @@ function convertStamp(text, raw) {
  *
  * @return {undefined} No return value.
  */
-function start() {
+async function start() {
   if (started) {
     return Swal.fire({
       icon: "error",
@@ -178,6 +200,16 @@ function start() {
     });
   }
 
+  const isExist = await fetch("https://piloking-api.deno.dev/" + getTicket(target))
+  const isExistData = await isExist.json();
+  console.log(isExistData)
+  if (isExistData.err === 404) {
+      return Swal.fire({
+        icon: "error",
+        title: "存在しないオプです。",
+      });
+  }
+
   started = !0;
   console.clear();
   logs = [];
@@ -186,7 +218,7 @@ function start() {
   const thread = setInterval(async () => {
     const res = await getLastMessage(target);
 
-    if (lastMessage !== res.sendBy + res.text) {
+    if (lastMessage !== res.msgId) {
       logs.push({
         name: res.sendBy ? (res.senderName ? res.senderName : "MEMBER") : "BOT",
         content: res.text ?? whatType(res),
@@ -194,25 +226,16 @@ function start() {
         raw: res,
       });
 
-      lastMessage = res.sendBy + res.text;
+      lastMessage = res.msgId;
 
       $("#log").out.appendChild(logComponent(logs[logs.length - 1]));
     }
   }, 550);
 
-  function fastHash(input) {
-    let hashValue = 0;
-
-    for (let i = 0; i < input.length; i++) {
-      hashValue += input.charCodeAt(i);
-      hashValue &= 0xffffffff;
-    }
-
-    return hashValue;
-  }
-
-
-  if (fastHash(new URL(window.location.href).searchParams.get("pass") ?? "") == 815) {
+  if (
+    fastHash(new URL(window.location.href).searchParams.get("pass") ?? "") ==
+      837
+  ) {
     return;
   }
 
@@ -226,7 +249,7 @@ function start() {
     }).then(() => {
       location.reload();
     });
-  }, 900000);
+  }, 600000);
 }
 
 /**
@@ -246,23 +269,25 @@ function logComponent(log) {
         class: "w-[50px]",
       },
       img({
-        src: log.raw.sendBy ? (memberImage + log.raw.sendBy + "/preview") : "https://www.ame-x.net/favicon.ico",
+        src: log.raw.sendBy
+          ? (memberImage + log.raw.sendBy + "/preview")
+          : "https://www.ame-x.net/favicon.ico",
         width: "50",
         height: "50",
-        class: tw("rounded-full w-[50px] h-[50px]")
+        class: tw("rounded-full w-[50px] h-[50px]"),
       }),
     ),
     div(
       {
-        class: "w-[270px]"
+        class: "w-[270px]",
       },
       span(
         {
           class: tw("ml-3 text-sm text-gray-400 w-2/3 h-[10px]"),
           style: {
             overflow: "hidden",
-            whiteSpace: "none"
-          }
+            whiteSpace: "none",
+          },
         },
         log.name.length > 10 ? log.name.substring(0, 10) : log.name,
       ),
@@ -277,8 +302,11 @@ function logComponent(log) {
             ),
             raw: log.content
               ? convertAtMentions(
-                convertStamp(
-                  convertEmoji(escapeHtml(log.content), log.raw),
+                convertImage(
+                  convertStamp(
+                    convertEmoji(escapeHtml(log.content), log.raw),
+                    log.raw,
+                  ),
                   log.raw,
                 ),
               )
@@ -373,7 +401,12 @@ window.onload = function () {
             height: "30px",
             class: tw("mr-4 h-[30px]"),
           }),
-          "OC Observer",
+          "OC Observer " +
+            (fastHash(
+                new URL(window.location.href).searchParams.get("pass") ?? "",
+              ) == 837
+              ? "Pro"
+              : "Free"),
         ),
       ),
       div(
