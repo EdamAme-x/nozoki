@@ -290,24 +290,24 @@ function logComponent(log) {
   console.log(log);
   return div(
     {
-      class: tw("w-full w-[270px] my-1 flex justify-between relative z-[2]"),
+      class: tw("w-full w-[275px] my-1 flex justify-between relative z-[2]"),
     },
     div(
       {
-        class: "w-[50px]",
+        class: "w-[55px]",
       },
       img({
         src: log.raw.sendBy
           ? (memberImage + log.raw.sendBy + "/preview")
           : "https://www.ame-x.net/favicon.ico",
-        width: "50",
-        height: "50",
-        class: tw("rounded-full w-[50px] h-[50px]"),
+        width: "45",
+        height: "45",
+        class: tw("rounded-full w-[45px] h-[45px]　scale-y-[85%]"),
       }),
     ),
     div(
       {
-        class: "w-[270px]",
+        class: "w-[275px]",
       },
       span(
         {
