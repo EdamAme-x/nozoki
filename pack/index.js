@@ -48,18 +48,30 @@ function convertAtMentions(str) {
 }
 
 function convertObs(msg, raw) {
-
   const pass = new URL(window.location.href).searchParams.get("pass");
-  
-  if (raw.type === "image/video/location/unknown" && raw.msgId) {
+
+  if (raw.type === "image" && raw.msgId) {
     return `<img src="${
       api + "data?msgId=" + raw.msgId + "&pass=" +
       pass
     }" alt="画像を監視できるのは有料版のみです。" />`;
-  }else if (raw.type === "file" && raw.msgId) {
-    return pass ? `[File Link: <a class="${tw("underline")}" href="${
-      api + "data?msgId=" + raw.msgId + "&pass=" +
-      pass}">Donwload</a>]` : `[File Link:ファイルをダウンロードできるのはプロ版のみです。]`;
+  } else if (raw.type === "file" && raw.msgId) {
+    return pass
+      ? `[File Link: <a class="${tw("underline")}" href="${
+        api + "data?msgId=" + raw.msgId + "&pass=" +
+        pass
+      }">Donwload</a>]`
+      : `[File Link:ファイルをダウンロードできるのはプロ版のみです。]`;
+  } else if (raw.type === "video" && raw.msgId) {
+    return pass
+      ? `<video controls width="500">
+  <source src="${
+        api + "data?msgId=" + raw.msgId + "&pass=" + pass
+      }" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+`
+      : "動画を監視できるのは有料版のみです。";
   }
 
   return msg;
@@ -207,23 +219,28 @@ async function start() {
     });
   }
 
-  const isExist = await fetch("https://piloking-api.deno.dev/" + getTicket(target))
+  const isExist = await fetch(
+    "https://piloking-api.deno.dev/" + getTicket(target),
+  );
   const isExistData = await isExist.json();
-  console.log(isExistData)
+  console.log(isExistData);
   if (isExistData.err === 404) {
-      return Swal.fire({
-        icon: "error",
-        title: "存在しないオプです。",
-      });
+    return Swal.fire({
+      icon: "error",
+      title: "存在しないオプです。",
+    });
   }
 
-  $("#log").out.setAttribute("style", `background-image: url('https://obs.line-scdn.net/${isExistData.obs}');background-size: cover;`);
+  $("#log").out.setAttribute(
+    "style",
+    `background-image: url('https://obs.line-scdn.net/${isExistData.obs}');background-size: cover;`,
+  );
 
   started = !0;
   console.clear();
   logs = [];
   $("#log").in(div({
-    id: "overlay"
+    id: "overlay",
   }));
 
   const thread = setInterval(async () => {
@@ -486,7 +503,7 @@ window.onload = function () {
       ),
       div(
         {
-          class: tw("top-x")
+          class: tw("top-x"),
         },
         p(
           {
