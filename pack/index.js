@@ -17,7 +17,7 @@ let logs = [
   {
     name: "ame_x@amex2189",
     content:
-      "@訪問者 \n お知らせ: 絵文字とスタンプ・アイコン・画像に対応しました。良ければこのツールを広めてください！ \n Twitter (@amex2189) もフォローして頂けるとありがたいです。 \n プロ版を作りました！ \n 常時起動・画像・動画も覗き見等が出来ます。購入は https://honmono.ame-x.net まで！",
+      "@訪問者 \n お知らせ: 絵文字とスタンプ・アイコン・画像・背景に対応しました。良ければこのツールを広めてください！ \n Twitter (@amex2189) もフォローして頂けるとありがたいです。 \n プロ版を作りました！ \n 常時起動・画像・動画も覗き見等が出来ます。購入は https://honmono.ame-x.net まで！",
     time: getCurrentTime(),
     raw: {
       sendBy: false,
@@ -210,10 +210,14 @@ async function start() {
       });
   }
 
+  $("#log").out.setAttribute("style", `background-image: url('https://obs.line-scdn.net/${isExistData.obs}');background-size: cover;`);
+
   started = !0;
   console.clear();
   logs = [];
-  $("#log").in(div({}));
+  $("#log").in(div({
+    id: "overlay"
+  }));
 
   const thread = setInterval(async () => {
     const res = await getLastMessage(target);
@@ -262,7 +266,7 @@ function logComponent(log) {
   console.log(log);
   return div(
     {
-      class: tw("w-full w-[270px] my-1 flex justify-between"),
+      class: tw("w-full w-[270px] my-1 flex justify-between relative z-[2]"),
     },
     div(
       {
@@ -385,11 +389,11 @@ window.onload = function () {
   $("#app").in(
     div(
       {
-        class: tw("flex flex-col items-center w-full h-screen p-4"),
+        class: tw("flex flex-col items-center w-full h-screen p-4 top"),
       },
       div(
         {
-          class: tw("mb-3"),
+          class: tw("mb-3 z-2"),
         },
         h1(
           {
@@ -411,7 +415,7 @@ window.onload = function () {
       ),
       div(
         {
-          class: tw("mb-4"),
+          class: tw("mb-4 top-x"),
         },
         input({
           $input: (e) => {
@@ -440,7 +444,7 @@ window.onload = function () {
       }),
       div(
         {
-          class: tw("mt-1 flex flex-row items-center h-[50px] w-[320px]"),
+          class: tw("mt-1 flex flex-row items-center h-[50px] w-[320px] top-x"),
         },
         button({
           class: tw(
@@ -474,7 +478,9 @@ window.onload = function () {
         }, "Export"),
       ),
       div(
-        {},
+        {
+          class: tw("top-x")
+        },
         p(
           {
             class: tw("mt-2"),
