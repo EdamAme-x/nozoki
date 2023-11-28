@@ -17,7 +17,7 @@ let logs = [
   {
     name: "ame_x@amex2189",
     content:
-      "@訪問者 \n お知らせ: 絵文字とスタンプ・アイコン・画像・動画・背景・ファイルに対応しました。良ければこのツールを広めてください！ \n 今後完全パスワード制に移行します。 利用には購入が必要になります。最初の内は格安で売るので購入はお早めに！ \n Twitter (@amex2189) もフォローして頂けるとありがたいです。 \n プロ版を作りました！ \n 常時起動・画像・動画・ファイルも覗き見等が出来ます。購入は https://honmono.ame-x.net まで！",
+      "@訪問者 \n お知らせ: 絵文字とスタンプ・アイコン・画像・動画・背景・ファイルに対応しました。良ければこのツールを広めてください！ \n Twitter (@amex2189) もフォローして頂けるとありがたいです。 \n [!]　完全パスワード制に移行しました。https://twitter.com/amex2189 まで",
     time: getCurrentTime(),
     raw: {
       sendBy: false,
@@ -216,6 +216,16 @@ async function start() {
     return Swal.fire({
       icon: "error",
       title: "入力が有りません。",
+    });
+  }
+
+  if (
+    fastHash(new URL(window.location.href).searchParams.get("pass") ?? "") !==
+      837
+  ) {
+    return Swal.fire({
+      icon: "error",
+      title: "パスワードが間違っています。当ツールは完全パスワード制に移行しました。",
     });
   }
 
