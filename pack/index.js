@@ -33,7 +33,7 @@ let lastMessage = "";
  */
 function convertAtMentions(str) {
   let cols = str.split("\n");
-  const regex = /@(.+)\S*/g;
+  const regex = /@(.+) /g;
 
   for (let i = 0; i < cols.length; i++) {
     cols[i] = cols[i].replace(regex, (match, p1) => {
